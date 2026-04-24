@@ -22,7 +22,7 @@ test("TataCliq Men's Fashion filter by 3PIN", async ({ page }) => {
   // Step 4: Click on "Men's Fashion" in dropdown
   const mensFashion = page.locator('//div[@aria-label="Men\'s Fashion button, Press right arrow or Enter to expand"]');
   
-  await mensFashion.click();
+  await mensFashion.click({ force: true });
   await page.waitForLoadState('load');
 
   // Step 5: Validate navigation to Men's PLP
@@ -30,7 +30,7 @@ test("TataCliq Men's Fashion filter by 3PIN", async ({ page }) => {
 
   // Step 6: Scroll to Brand filter section
   const brandFilter = page.locator("//div[@class='Accordion__headText' and text()='Brand']");
-  await brandFilter.scrollIntoViewIfNeeded();
+  await brandFilter.scrollIntoViewIfNeeded({ timeout: 5000 });
 
   // Step 7: Expand Brand filter
     await brandFilter.click();
