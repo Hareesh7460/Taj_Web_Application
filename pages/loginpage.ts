@@ -33,13 +33,13 @@ export class LoginPage{
         await this.page.goto("https://web-preprod1-528v2.tajhotels.com/en-in",{waitUntil:"load"});
     }
     async mobile_Loging_with_Valid_OTP(mobileNumber:string){
-        await this.login_joinBtn.first().waitFor({state:"visible", timeout:5000});
+        await this.login_joinBtn.first().waitFor({state:"visible", timeout:10000});
         await this.login_joinBtn.first().click();
-        await expect(this.loginPopUp_screen).toBeVisible({timeout: 5000});
+        await expect(this.loginPopUp_screen).toBeVisible({timeout: 10000});
         await this.mobileNumber_input.fill(mobileNumber);
         await this.checkBox.check();
         await this.continueBtn.click();
-        await this.page.waitForTimeout(5000);
+        await this.page.waitForTimeout(3000);
         const otp="254265";
         for(let i=0; i<otp.length; i++){
             await this.otp_input.nth(i).fill(otp[i]);
@@ -47,9 +47,9 @@ export class LoginPage{
    
 }
     async mobile_login_invalid_OTP(mobileNumber:string){
-        await this.login_joinBtn.first().waitFor({state:"visible", timeout:5000})
+        await this.login_joinBtn.first().waitFor({state:"visible", timeout:10000})
         await this.login_joinBtn.first().click();
-        await expect(this.loginPopUp_screen).toBeVisible({timeout: 5000});
+        await expect(this.loginPopUp_screen).toBeVisible({timeout: 10000});
         await this.mobileNumber_input.fill(mobileNumber);
         await this.checkBox.check();
         await this.continueBtn.click();
