@@ -1,5 +1,5 @@
-import { test,expect } from "../../fixtures/Login_Fixture";
-import { LoginPage } from "../../pages/loginpage";
+import { test } from "../../fixtures/Login_Fixture";
+//import{test} from "@playwright/test"
 
 test("Mobile login with valid OTP @smoke",async({loginPage})=>{
     await loginPage.openTajHotel();
