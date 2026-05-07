@@ -39,11 +39,11 @@ export class LoginPage{
     
     async openTajHotel(){
         await this.page.goto("https://web-preprod1-528v2.tajhotels.com/en-in");
-        //await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('domcontentloaded');
     }
     async mobile_Loging_with_Valid_OTP(mobileNumber:string){
         
-        await this.login_joinBtn.first().waitFor({state:"visible", timeout:10000});
+        await this.login_joinBtn.first().waitFor({state:"visible", timeout:20000});
         await this.login_joinBtn.first().click();
         await expect(this.loginPopUp_screen).toBeVisible({timeout: 15000});
         await this.mobileNumber_input.fill(mobileNumber);
@@ -78,7 +78,7 @@ export class LoginPage{
             }
             
         }
-        await this.myaccount.isVisible({timeout: 5000});
+        await expect(this.myaccount).toBeVisible({timeout: 5000});
     }
 
 }
