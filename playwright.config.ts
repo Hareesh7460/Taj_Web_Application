@@ -12,6 +12,9 @@ import dotenv from 'dotenv';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+  dotenv.config({
+    path:`./env-files/.env.${process.env.TEST_ENV}`
+  })
 export default defineConfig({
   timeout: 60000,
   expect: {
