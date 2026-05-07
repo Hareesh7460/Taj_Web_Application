@@ -16,32 +16,43 @@ export class LoginPage{
 
     constructor(page:Page){
         this.page = page;
-        this.login_joinBtn = page.locator("//span[contains(text(), 'LOGIN / JOIN')]");
-        this.loginPopUp_screen = page.locator('//h4[contains(text(),"ALREADY A MEMBER? LOGIN")]');
-        this.mobileNumber_input = page.locator('//input[@name="senderMobile"]');
-        this.checkBox = page.locator('//input[@type="checkbox"]');
-        this.continueBtn = page.locator('//button[contains(text(), "CONTINUE")]');
-        this.countryCode_DD = page.locator('//img[@alt="country-flag"]');
+        this.login_joinBtn = page.getByText('LOGIN / JOIN')
+        // page.locator("//span[contains(text(), 'LOGIN / JOIN')]");
+        this.loginPopUp_screen = page.getByRole('heading', { name: 'ALREADY A MEMBER? LOGIN' })
+        // page.locator('//h4[contains(text(),"ALREADY A MEMBER? LOGIN")]');
+        this.mobileNumber_input = page.getByRole('textbox', { name: 'Enter your mobile number' }) 
+        // page.locator('//input[@name="senderMobile"]');
+        this.checkBox = page.getByRole('checkbox', { name: 'Checkbox demo' })
+      //  page.locator('//input[@type="checkbox"]');
+        this.continueBtn = page.getByRole('button', { name: 'CONTINUE' });
+        this.countryCode_DD = page.getByRole('combobox')
+        //page.locator('//img[@alt="country-flag"]');
         this.selectCountryCode = page.locator('//span[contains(text(),"India")]');
-        this.closeBtn = page.locator('//span[contains(text(), "CLOSE")]');
+        this.closeBtn = page.getByTestId('ClearIcon')
+        //page.locator('//span[contains(text(), "CLOSE")]');
         this.otp_input = page.locator('//input[@type="tel"]');
-        this.incorrectOTP_errorMsg = page.locator('//span[contains(text(),"Uh-oh! Incorrect OTP. 2 attempt(s) left")]');
-        this.myaccount = page.locator('//a[contains(text(),"MY ACCOUNT")]');
+        this.incorrectOTP_errorMsg = page.getByText('Uh-oh! Incorrect OTP. 2')
+        //page.locator('//span[contains(text(),"Uh-oh! Incorrect OTP. 2 attempt(s) left")]');
+        this.myaccount = page.getByRole('link', { name: 'MY ACCOUNT' })
+        //page.locator('//a[contains(text(),"MY ACCOUNT")]');
     }
     
     async openTajHotel(){
-        await this.page.goto("https://web-preprod1-528v2.tajhotels.com/en-in",{waitUntil:"load"});
+        await this.page.goto("https://web-preprod1-528v2.tajhotels.com/en-in");
+        //await this.page.waitForLoadState('networkidle');
     }
     async mobile_Loging_with_Valid_OTP(mobileNumber:string){
+        
         await this.login_joinBtn.first().waitFor({state:"visible", timeout:10000});
         await this.login_joinBtn.first().click();
-        await expect(this.loginPopUp_screen).toBeVisible({timeout: 10000});
+        await expect(this.loginPopUp_screen).toBeVisible({timeout: 15000});
         await this.mobileNumber_input.fill(mobileNumber);
         await this.checkBox.check();
         await this.continueBtn.click();
-        await this.page.waitForTimeout(3000);
+        await this.page.waitForTimeout(5000)
         const otp="254265";
         for(let i=0; i<otp.length; i++){
+            await this.otp_input.nth(i).waitFor({state:"visible"})
             await this.otp_input.nth(i).fill(otp[i]);
     }
    
@@ -49,7 +60,9 @@ export class LoginPage{
     async mobile_login_invalid_OTP(mobileNumber:string){
         await this.login_joinBtn.first().waitFor({state:"visible", timeout:10000})
         await this.login_joinBtn.first().click();
-        await expect(this.loginPopUp_screen).toBeVisible({timeout: 10000});
+        await this.mobileNumber_input.fill(mobileNumber);
+        await this.checkBox.check();
+        await expect(this.loginPopUp_screen).toBeVisible({timeout:150000});
         await this.mobileNumber_input.fill(mobileNumber);
         await this.checkBox.check();
         await this.continueBtn.click();

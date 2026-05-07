@@ -8,7 +8,7 @@
     "test:dev": "cross-env TEST_ENV=dev npx playwright test",
     "test:uat": "cross-env TEST_ENV=uat npx playwright test",
     "test:preprod": "cross-env TEST_ENV=preprod npx playwright test",
-    "test:prod": "cross-env TEST_ENV=prod npx playwright test"
+    "test:prod": "cross-env TEST_ENV=prod npx playwright test"  
   },
   "keywords": [],
   "author": "",
